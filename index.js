@@ -42,11 +42,14 @@ function parse (id) {
 
 
 function format (obj) {
-  var version = obj.version || obj.range;
+  if (Object(obj) !== obj) {
+    throw new TypeError('`obj` must be an object.');
+  }
 
-  return obj.name + (
-    version
+  var version = obj.version || obj.range;
+  var version_slice = version
       ? '@' + version
-      : ''
-  ) + obj.path;
+      : '';
+
+  return obj.name + version_slice + (obj.path || '');
 }
