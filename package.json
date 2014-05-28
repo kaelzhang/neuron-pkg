@@ -1,6 +1,6 @@
 {
   "name": "neuron-pkg",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parses neuron package id into name, version and path.",
   "main": "index.js",
   "scripts": {

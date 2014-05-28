@@ -71,3 +71,16 @@ cases.forEach(function (c) {
     });
   });
 });
+
+describe("error", function(){
+  it("should throw error if id is not a string", function(){
+    var error;
+    try {
+      pkg();
+    } catch(e) {
+      error = e;
+    }
+
+    expect(error).not.to.equal();
+  });
+});

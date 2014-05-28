@@ -12,6 +12,10 @@ var REGEX_PARSE_ID = /^((?:[^\/])+?)(?:@([^\/]+))?(\/.*)?$/;
 
 // @param {string} resolved path-resolved module identifier
 function parse (id) {
+  if (!id) {
+    throw new TypeError('`id` must be a string.');
+  }
+
   var match = id.match(REGEX_PARSE_ID);
   var name = match[1];
 
