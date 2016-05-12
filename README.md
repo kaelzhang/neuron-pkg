@@ -1,51 +1,41 @@
-[![NPM version](https://badge.fury.io/js/neuron-pkg.svg)](http://badge.fury.io/js/neuron-pkg)
-[![Build Status](https://travis-ci.org/kaelzhang/neuron-pkg.svg?branch=master)](https://travis-ci.org/kaelzhang/neuron-pkg)
+[![NPM version](https://badge.fury.io/js/module-id.svg)](http://badge.fury.io/js/module-id)
+[![Build Status](https://travis-ci.org/kaelzhang/node-module-id.svg?branch=master)](https://travis-ci.org/kaelzhang/node-module-id)
 
-# neuron-pkg
+# module-id
 
-Parses neuron package id into name, version and path.
+Utility to parse commonjs module id into name, version and path.
 
 ## Install
 
 ```bash
-$ npm install neuron-pkg --save
+$ npm install module-id --save
 ```
 
 ## Usage
 
 ```js
-var pkg = require('neuron-pkg');
+const module_id = require('module-id')
 
-pkg('a@~1.3.0/abc');
+let parsed = module_id('a@~1.3.0/abc')
 // -> {
 //   name: 'a',
-//   version: undefined
-//   range: '~1.3.0',
+//   version: '~1.3.0',
 //   path: '/abc'
 // }
 
-pkg('a@1.2.3');
+parsed.format()           // -> 'a@~1.3.0/abc'
+parsed.normalize_url()    // -> 'a/~1.3.0/abc'
+
+
+module_id('a/a.css')
 // -> {
 //   name: 'a',
-//   version: '1.2.3',
-//   range: undefined,
-//   path: ''
+//   version: undefined,
+//   path: '/a.css'
 // }
+
+module_id('a/a.css').normalize_url()   // -> 'a/*/a.css'
 ```
-
-## pkg(id)
-
-- id `String`
-
-Returns `Object` the parsed object.
-
-### pkg.format(obj)
-
-- obj `Object`
-
-The reverse method of `pkg(id)`
-
-Returns `String` the formated id.
 
 ## License
 
