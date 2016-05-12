@@ -1,6 +1,5 @@
 [![NPM version](https://badge.fury.io/js/neuron-pkg.svg)](http://badge.fury.io/js/neuron-pkg)
 [![Build Status](https://travis-ci.org/kaelzhang/neuron-pkg.svg?branch=master)](https://travis-ci.org/kaelzhang/neuron-pkg)
-[![Dependency Status](https://gemnasium.com/kaelzhang/neuron-pkg.svg)](https://gemnasium.com/kaelzhang/neuron-pkg)
 
 # neuron-pkg
 
@@ -42,7 +41,7 @@ Returns `Object` the parsed object.
 
 ### pkg.format(obj)
 
-- obj `Object` 
+- obj `Object`
 
 The reverse method of `pkg(id)`
 
