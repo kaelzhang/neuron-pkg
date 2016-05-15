@@ -69,19 +69,38 @@ function expect_type (type, actual, expected) {
 
 
 cases.forEach(function (c) {
+  function e (p, c) {
+    expect_type('name', p.name, c.name)
+    expect_type('version', p.version, c.version)
+    expect_type('path', p.path, c.path)
+    expect_type('.format()', p.format(), c.id)
+    expect_type('format(pkg)', pkg.format(p), c.id)
+    expect_type('.normalize_url()', p.normalize_url(p), c.url)
+    expect_type('.pkg', p.pkg, c.pkg)
+  }
+
   describe(c.id, function(){
-    it("pkg(id)", function(){
+    it("id(id)", function(){
       var p = pkg(c.id)
-      expect_type('name', p.name, c.name)
-      expect_type('version', p.version, c.version)
-      expect_type('path', p.path, c.path)
-      expect_type('.format()', p.format(), c.id)
-      expect_type('format(pkg)', pkg.format(p), c.id)
-      expect_type('.normalize_url()', p.normalize_url(p), c.url)
-      expect_type('.pkg', p.pkg, c.pkg)
+      e(p, c)
+    })
+
+    it('id(name, version, path)', function () {
+      var p = pkg(c.name, c.version, c.path)
+      e(p, c)
+    })
+
+    if (c.path) {
+      return
+    }
+
+    it('id(name, version)', function () {
+      var p = pkg(c.name, c.version)
+      e(p, c)
     })
   })
 })
+
 
 describe("error", function () {
   it("should throw error if id is not a string", function(){

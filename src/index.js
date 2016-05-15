@@ -9,17 +9,27 @@ const REGEX_PARSE_ID = /^((?:[^\/])+?)(?:@([^\/]+))?(\/.*)?$/
 // Shit, go to hell!
 
 // @param {string} resolved path-resolved module identifier
-function parse (id) {
-  if (!id) {
+function parse (name, version, path) {
+  if (!name) {
     throw new TypeError('`id` must be a string.')
   }
 
+  if (arguments.length === 3) {
+    return new Pkg(name, version, path)
+  }
+
+  if (arguments.length === 2) {
+    return new Pkg(name, version, '')
+  }
+
+  let id = name
+
   let match = id.match(REGEX_PARSE_ID)
-  let name = match[1]
+  name = match[1]
 
   // 'a/inner' -> 'a@latest/inner'
-  let version = match[2]
-  let path = match[3] || ''
+  version = match[2]
+  path = match[3] || ''
 
   // There always be matches
   return new Pkg(name, version, path)

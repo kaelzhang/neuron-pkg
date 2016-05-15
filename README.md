@@ -11,12 +11,12 @@ Utility to parse commonjs module id into name, version and path.
 $ npm install module-id --save
 ```
 
-## Usage
+## id(module_id)
 
 ```js
-const module_id = require('module-id')
+const id = require('module-id')
 
-let parsed = module_id('a@~1.3.0/abc')
+let parsed = id('a@~1.3.0/abc')
 // -> {
 //   name: 'a',
 //   version: '~1.3.0',
@@ -27,14 +27,20 @@ parsed.format()           // -> 'a@~1.3.0/abc'
 parsed.normalize_url()    // -> 'a/~1.3.0/abc'
 parsed.pkg                // -> 'a@~1.3.0'
 
-module_id('a/a.css')
+id('a/a.css')
 // -> {
 //   name: 'a',
 //   version: undefined,
 //   path: '/a.css'
 // }
 
-module_id('a/a.css').normalize_url()   // -> 'a/*/a.css'
+id('a/a.css').normalize_url()   // -> 'a/*/a.css'
+```
+
+## id(name, version, path)
+
+```js
+id('a', '1.1.0', '/a.css').format()  // -> 'a@1.1.0/a.css'
 ```
 
 ## License
