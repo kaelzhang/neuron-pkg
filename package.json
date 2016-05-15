@@ -1,6 +1,6 @@
 {
   "name": "module-id",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Parses neuron package id into name, version and path.",
   "main": "./lib",
   "scripts": {
