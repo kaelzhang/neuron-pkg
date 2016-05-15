@@ -25,7 +25,7 @@ let parsed = module_id('a@~1.3.0/abc')
 
 parsed.format()           // -> 'a@~1.3.0/abc'
 parsed.normalize_url()    // -> 'a/~1.3.0/abc'
-
+parsed.pkg                // -> 'a@~1.3.0'
 
 module_id('a/a.css')
 // -> {

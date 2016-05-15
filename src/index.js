@@ -26,21 +26,26 @@ function parse (id) {
 }
 
 
-function Pkg (name, version, path) {
-  this.name = name
-  this.version = version
-  this.path = path
-}
+class Pkg {
+  constructor (name, version, path) {
+    this.name = name
+    this.version = version
+    this.path = path
+  }
 
-Pkg.prototype.format = function (){
-  return format(this)
-}
+  format () {
+    return format(this)
+  }
 
+  normalize_url () {
+    return this.name + '/'
+    + (this.version || '*')
+    + (this.path || '/' + this.name + '.js')
+  }
 
-Pkg.prototype.normalize_url = function () {
-  return this.name + '/'
-  + (this.version || '*')
-  + (this.path || '/' + this.name + '.js')
+  get pkg () {
+    return this.name + '@' + (this.version || '*')
+  }
 }
 
 

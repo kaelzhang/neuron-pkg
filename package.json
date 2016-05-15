@@ -1,8 +1,8 @@
 {
   "name": "module-id",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Parses neuron package id into name, version and path.",
-  "main": "index.js",
+  "main": "./lib",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec ./test/module-id.js"
   },
@@ -30,8 +30,8 @@
     "url": "https://github.com/kaelzhang/neuron-pkg/issues"
   },
   "devDependencies": {
-    "mocha": "*",
-    "chai": "*"
+    "chai": "~1.7.2",
+    "mocha": "~1.13.0"
   },
   "dependencies": {
   }

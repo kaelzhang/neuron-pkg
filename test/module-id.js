@@ -8,6 +8,7 @@ var cases = [
     id: 'a',
     name: 'a',
     version: undefined,
+    pkg: 'a@*',
     path: '',
     url: 'a/*/a.js'
   },
@@ -15,6 +16,7 @@ var cases = [
     id: 'a@1.1.0',
     name: 'a',
     version: '1.1.0',
+    pkg: 'a@1.1.0',
     path: '',
     url: 'a/1.1.0/a.js'
   },
@@ -22,6 +24,7 @@ var cases = [
     id: 'a@1.1.0/a',
     name: 'a',
     version: '1.1.0',
+    pkg: 'a@1.1.0',
     path: '/a',
     url: 'a/1.1.0/a'
   },
@@ -29,6 +32,7 @@ var cases = [
     id: 'a@~1.1.0/a',
     name: 'a',
     version: '~1.1.0',
+    pkg: 'a@~1.1.0',
     path: '/a',
     url: 'a/~1.1.0/a'
   },
@@ -36,6 +40,7 @@ var cases = [
     id: 'a/a',
     name: 'a',
     version: undefined,
+    pkg: 'a@*',
     path: '/a',
     url: 'a/*/a'
   },
@@ -43,6 +48,7 @@ var cases = [
     id: 'a@hahah/a',
     name: 'a',
     version: 'hahah',
+    pkg: 'a@hahah',
     path: '/a',
     url: 'a/hahah/a'
   },
@@ -50,6 +56,7 @@ var cases = [
     id: 'a/a.css',
     name: 'a',
     version: undefined,
+    pkg: 'a@*',
     path: '/a.css',
     url: 'a/*/a.css'
   }
@@ -71,6 +78,7 @@ cases.forEach(function (c) {
       expect_type('.format()', p.format(), c.id)
       expect_type('format(pkg)', pkg.format(p), c.id)
       expect_type('.normalize_url()', p.normalize_url(p), c.url)
+      expect_type('.pkg', p.pkg, c.pkg)
     })
   })
 })
