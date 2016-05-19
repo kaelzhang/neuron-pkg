@@ -45,8 +45,9 @@ let parsed = id('a/index.js')
 parsed.scope   // undefined
 
 parsed.scope = 'facebook'
-parsed.name = '@facebook/a'
-parsed.id = '@facebook/a/index.js'
+
+parsed.name    // '@facebook/a'
+parsed.id      // '@facebook/a/index.js'
 ```
 
 ### Setter: .name
@@ -56,7 +57,8 @@ If the given value of `name` is a scoped package name, it will also affect the `
 ```js
 let parsed = id('a/index.js')
 parsed.name = '@facebook/a'
-parsed.scope = 'facebook'
+
+parsed.scope   // 'facebook'
 ```
 
 ## License
