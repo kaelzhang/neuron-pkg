@@ -1,64 +1,107 @@
 'use strict'
 
 var expect = require('chai').expect
-var pkg = require('../')
+var id = require('../')
 
 var cases = [
   {
     id: 'a',
+
+    scope: undefined,
     name: 'a',
     version: undefined,
+    path: undefined,
+
     pkg: 'a@*',
-    path: '',
     url: 'a/*/a.js'
   },
   {
     id: 'a@1.1.0',
+
+    scope: undefined,
     name: 'a',
     version: '1.1.0',
+    path: undefined,
+
     pkg: 'a@1.1.0',
-    path: '',
     url: 'a/1.1.0/a.js'
   },
   {
     id: 'a@1.1.0/a',
+
+    scope: undefined,
     name: 'a',
     version: '1.1.0',
-    pkg: 'a@1.1.0',
     path: '/a',
+
+    pkg: 'a@1.1.0',
     url: 'a/1.1.0/a'
   },
   {
     id: 'a@~1.1.0/a',
+
+    scope: undefined,
     name: 'a',
     version: '~1.1.0',
-    pkg: 'a@~1.1.0',
     path: '/a',
+
+    pkg: 'a@~1.1.0',
     url: 'a/~1.1.0/a'
   },
   {
     id: 'a/a',
+
+    scope: undefined,
     name: 'a',
     version: undefined,
-    pkg: 'a@*',
     path: '/a',
+
+    pkg: 'a@*',
     url: 'a/*/a'
   },
   {
     id: 'a@hahah/a',
+
+    scope: undefined,
     name: 'a',
     version: 'hahah',
-    pkg: 'a@hahah',
     path: '/a',
+
+    pkg: 'a@hahah',
     url: 'a/hahah/a'
   },
   {
     id: 'a/a.css',
+
+    scope: undefined,
     name: 'a',
     version: undefined,
-    pkg: 'a@*',
     path: '/a.css',
+
+    pkg: 'a@*',
     url: 'a/*/a.css'
+  },
+  {
+    id: '@a/a/a.css',
+
+    scope: 'a',
+    name: '@a/a',
+    version: undefined,
+    path: '/a.css',
+
+    pkg: '@a/a@*',
+    url: 'a/a/*/a.css'
+  },
+  {
+    id: '@a/a@1.0.0/a.css',
+
+    scope: 'a',
+    name: '@a/a',
+    version: '1.0.0',
+    path: '/a.css',
+
+    pkg: '@a/a@1.0.0',
+    url: 'a/a/1.0.0/a.css'
   }
 ]
 
@@ -68,34 +111,27 @@ function expect_type (type, actual, expected) {
 }
 
 
+function e (p, c) {
+  [
+    'scope',
+    'name',
+    'version',
+    'path',
+
+    'id',
+    'pkg',
+    'url'
+
+  ].forEach((key) => {
+    expect_type(key, p[key], c[key])
+  })
+}
+
 cases.forEach(function (c) {
-  function e (p, c) {
-    expect_type('name', p.name, c.name)
-    expect_type('version', p.version, c.version)
-    expect_type('path', p.path, c.path)
-    expect_type('.format()', p.format(), c.id)
-    expect_type('format(pkg)', pkg.format(p), c.id)
-    expect_type('.normalize_url()', p.normalize_url(p), c.url)
-    expect_type('.pkg', p.pkg, c.pkg)
-  }
 
   describe(c.id, function(){
     it("id(id)", function(){
-      var p = pkg(c.id)
-      e(p, c)
-    })
-
-    it('id(name, version, path)', function () {
-      var p = pkg(c.name, c.version, c.path)
-      e(p, c)
-    })
-
-    if (c.path) {
-      return
-    }
-
-    it('id(name, version)', function () {
-      var p = pkg(c.name, c.version)
+      var p = id(c.id)
       e(p, c)
     })
   })
@@ -106,11 +142,40 @@ describe("error", function () {
   it("should throw error if id is not a string", function(){
     var error
     try {
-      pkg()
+      id()
     } catch(e) {
       error = e
     }
 
     expect(error).not.to.equal()
+  })
+})
+
+
+describe('name setter', function () {
+  it('no scope', function () {
+    var p = id('a/a')
+    p.name = 'b'
+
+    expect(p.name).to.equal('b')
+    expect(p.id).to.equal('b/a')
+    expect(p.scope).to.equal()
+  })
+
+  it('scope -> no scope', function () {
+    var p = id('@a/a')
+    p.name = 'a'
+    expect(p.name).to.equal('a')
+    expect(p.id).to.equal('a')
+    expect(p.scope).to.equal()
+  })
+
+  it('scope -> scope', function () {
+    var p = id('@a/a/css')
+    p.name = '@b/a'
+
+    expect(p.name).to.equal('@b/a')
+    expect(p.scope).to.equal('b')
+    expect(p.id).to.equal('@b/a/css')
   })
 })
