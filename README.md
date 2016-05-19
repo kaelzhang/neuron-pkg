@@ -35,12 +35,15 @@ parsed.id       // 'a@1.1.0/abc.js'
 
 ### Getter: .name
 
-The name of a package, i.e. the `name` field of package.json, support [scoped package](https://docs.npmjs.com/misc/scope) name
+The name of a package, i.e. the `name` field of package.json, supports [scoped package](https://docs.npmjs.com/misc/scope) names
 
 Setting `scope` will affect the value of `name`
 
 ```js
 let parsed = id('a/index.js')
+
+parsed.scope   // undefined
+
 parsed.scope = 'facebook'
 parsed.name = '@facebook/a'
 parsed.id = '@facebook/a/index.js'
