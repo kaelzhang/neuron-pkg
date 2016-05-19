@@ -26,24 +26,12 @@ parsed.id       // 'a/abc.js'
 parsed.url      // 'a/*/abc.js', the normalized url path
 parsed.pkg      // 'a@*'
 
-// Flavored with scope package name
-parsed.name = '@facebook/b'
-
-parsed.name     // '@facebook/b'
-parsed.scope    // 'facebook', setting `name` will affect `scope`
-parsed.id       // '@facebook/b/abc.js'
-
-// Change scope only
-parsed.scope = 'airbnb'
-
-parsed.name     // '@airbnb/b'
-parsed.scope    // '@airbnb'
-parsed.id       // '@airbnb/b/abc.js'
-
 // Change version
 parsed.version = '1.1.0'
-parsed.id       // '@airbnb/b@1.1.0/abc.js'
+parsed.id       // 'a@1.1.0/abc.js'
+```
 
+## About Scoped Packages
 
 ### Getter: .name
 
