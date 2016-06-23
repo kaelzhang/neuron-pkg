@@ -1,7 +1,7 @@
 {
   "name": "module-id",
-  "version": "2.0.3",
-  "description": "Parses neuron package id into name, version and path.",
+  "version": "2.0.4",
+  "description": "Parses commonjs module id into name, version and path.",
   "main": "./lib",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec ./test/module-id.js"
