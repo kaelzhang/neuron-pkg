@@ -105,8 +105,8 @@ const cases = [
 ]
 
 
-// function expect_type (type, actual, expected) {
-//   expect(`${type}:${actual}`).to.equal(`${type}:${expected}`)
+// function t.is_type (type, actual, t.ised) {
+//   t.is(`${type}:${actual}`, `${type}:${t.ised}`)
 // }
 
 
@@ -133,38 +133,40 @@ cases.forEach(c => {
   })
 })
 
-
 test('should throw error if id is not a string', t => {
   t.throws(() => id(), {
     code: 'INVALID_TYPE'
   })
 })
 
+test('invalid module id', t => {
+  t.throws(() => id('/abc'), {
+    code: 'INVALID_MODULE_ID'
+  })
+})
 
-// describe('name setter', () => {
-//   it('no scope', () => {
-//     const p = id('a/a')
-//     p.name = 'b'
+test('no scope', t => {
+  const p = id('a/a')
+  p.name = 'b'
 
-//     expect(p.name).to.equal('b')
-//     expect(p.id).to.equal('b/a')
-//     expect(p.scope).to.equal()
-//   })
+  t.is(p.name, 'b')
+  t.is(p.id, 'b/a')
+  t.is(p.scope)
+})
 
-//   it('scope -> no scope', () => {
-//     const p = id('@a/a')
-//     p.name = 'a'
-//     expect(p.name).to.equal('a')
-//     expect(p.id).to.equal('a')
-//     expect(p.scope).to.equal()
-//   })
+test('scope -> no scope', t => {
+  const p = id('@a/a')
+  p.name = 'a'
+  t.is(p.name, 'a')
+  t.is(p.id, 'a')
+  t.is(p.scope)
+})
 
-//   it('scope -> scope', () => {
-//     const p = id('@a/a/css')
-//     p.name = '@b/a'
+test('scope -> scope', t => {
+  const p = id('@a/a/css')
+  p.name = '@b/a'
 
-//     expect(p.name).to.equal('@b/a')
-//     expect(p.scope).to.equal('b')
-//     expect(p.id).to.equal('@b/a/css')
-//   })
-// })
+  t.is(p.name, '@b/a')
+  t.is(p.scope, 'b')
+  t.is(p.id, '@b/a/css')
+})

@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "fix": "eslint . --fix",
     "posttest": "npm run report",
-    "prepublishOnly": "babel src --out-dir lib",
+    "build": "babel src --out-dir lib",
+    "prepublishOnly": "npm run build",
     "report": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "report:dev": "nyc report --reporter=html && npm run report:open",
     "report:open": "open coverage/index.html"

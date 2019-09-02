@@ -15,12 +15,12 @@
 
 # module-id
 
-Parse commonjs module id into name, version and path.
+Parse commonjs module id into `name`, `version` and `path`.
 
 ## Install
 
 ```bash
-$ npm install module-id --save
+$ npm i module-id
 ```
 
 ## id(module_id)
