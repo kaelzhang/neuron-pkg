@@ -1,19 +1,14 @@
-'use strict'
-
-module.exports = parse
-parse.format = format
-
-
 // @param {string} resolved path-resolved module identifier
-function parse (id) {
+const parse = id => {
   if (!id) {
-    throw new TypeError('`id` must be a string.')
+    const error = new TypeError(`id must be a string, but got \`${id}\``)
+    error.code = 'INVALID_ID_TYPE'
+    throw error
   }
 
   // There always be matches
   return new Pkg(parse_module_id(id))
 }
-
 
 // @const
 // 'a@1.2.3/abc' ->
@@ -33,6 +28,13 @@ const REGEX_PARSE_ID = /^(?:@([^\/]+)\/)?((?:[^\/])+?)(?:@([^\/]+))?(\/.*)?$/;
 // 'a/inner'    -> 'a@*/inner'
 function parse_module_id (id) {
   var match = id.match(REGEX_PARSE_ID)
+
+  if (!match) {
+    const error = new RangeError(`"${id}" is not a valid module id`)
+    error.code = 'INVALID_MODULE_ID'
+    throw error
+  }
+
   var scope = match[1]
   var _name = match[2]
 
@@ -49,7 +51,6 @@ function parse_module_id (id) {
   }
 }
 
-
 function format (obj) {
   let version = obj.version
       ? '@' + obj.version
@@ -59,7 +60,6 @@ function format (obj) {
 
   return obj.name + version + path
 }
-
 
 class Pkg {
   constructor ({
@@ -109,3 +109,6 @@ class Pkg {
     return this.name + '@' + (this.version || '*')
   }
 }
+
+module.exports = parse
+parse.format = format
