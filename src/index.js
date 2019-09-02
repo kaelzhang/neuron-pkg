@@ -1,21 +1,9 @@
-// @param {string} resolved path-resolved module identifier
-const parse = id => {
-  if (!id) {
-    const error = new TypeError(`id must be a string, but got \`${id}\``)
-    error.code = 'INVALID_TYPE'
-    throw error
-  }
-
-  // There always be matches
-  return new Pkg(parse_module_id(id))
-}
-
 // @const
 // 'a@1.2.3/abc' ->
 // ['a@1.2.3/abc', 'a', '1.2.3', '/abc']
 
 //                    0    1           2                3         4
-const REGEX_PARSE_ID = /^(?:@([^\/]+)\/)?((?:[^\/])+?)(?:@([^\/]+))?(\/.*)?$/
+const REGEX_PARSE_ID = /^(?:@([^/]+)\/)?((?:[^/])+?)(?:@([^/]+))?(\/.*)?$/
 // On android 2.2,
 // `[^\/]+?` will fail to do the lazy match, but `(?:[^\/])+?` works.
 // Shit, go to hell!
@@ -27,6 +15,12 @@ const REGEX_PARSE_ID = /^(?:@([^\/]+)\/)?((?:[^\/])+?)(?:@([^\/]+))?(\/.*)?$/
 // 'a'          -> 'a@*'
 // 'a/inner'    -> 'a@*/inner'
 function parse_module_id (id) {
+  if (typeof id !== 'string') {
+    const error = new TypeError(`id must be a string, but got \`${id}\``)
+    error.code = 'INVALID_TYPE'
+    throw error
+  }
+
   const match = id.match(REGEX_PARSE_ID)
 
   if (!match) {
@@ -109,6 +103,9 @@ class Pkg {
     return `${this.name}@${this.version || '*'}`
   }
 }
+
+// @param {string} resolved path-resolved module identifier
+const parse = id => new Pkg(parse_module_id(id))
 
 module.exports = parse
 parse.format = format

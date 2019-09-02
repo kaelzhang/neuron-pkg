@@ -139,6 +139,12 @@ test('should throw error if id is not a string', t => {
   })
 })
 
+test('number type', t => {
+  t.throws(() => id(1), {
+    code: 'INVALID_TYPE'
+  })
+})
+
 test('invalid module id', t => {
   t.throws(() => id('/abc'), {
     code: 'INVALID_MODULE_ID'
