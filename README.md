@@ -1,9 +1,21 @@
-[![NPM version](https://badge.fury.io/js/module-id.svg)](http://badge.fury.io/js/module-id)
 [![Build Status](https://travis-ci.org/kaelzhang/node-module-id.svg?branch=master)](https://travis-ci.org/kaelzhang/node-module-id)
+[![Coverage](https://codecov.io/gh/kaelzhang/node-module-id/branch/master/graph/badge.svg)](https://codecov.io/gh/kaelzhang/node-module-id)
+<!-- optional appveyor tst
+[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/kaelzhang/node-module-id?branch=master&svg=true)](https://ci.appveyor.com/project/kaelzhang/node-module-id)
+-->
+<!-- optional npm version
+[![NPM version](https://badge.fury.io/js/module-id.svg)](http://badge.fury.io/js/module-id)
+-->
+<!-- optional npm downloads
+[![npm module downloads per month](http://img.shields.io/npm/dm/module-id.svg)](https://www.npmjs.org/package/module-id)
+-->
+<!-- optional dependency status
+[![Dependency Status](https://david-dm.org/kaelzhang/node-module-id.svg)](https://david-dm.org/kaelzhang/node-module-id)
+-->
 
 # module-id
 
-Utility to parse commonjs module id.
+Parse commonjs module id into name, version and path.
 
 ## Install
 
@@ -63,4 +75,4 @@ parsed.scope   // 'facebook'
 
 ## License
 
-MIT
+[MIT](LICENSE)

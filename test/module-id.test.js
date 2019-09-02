@@ -1,9 +1,8 @@
-'use strict'
+const test = require('ava')
+// const log = require('util').debuglog('module-id')
+const id = require('../src')
 
-var expect = require('chai').expect
-var id = require('../')
-
-var cases = [
+const cases = [
   {
     id: 'a',
 
@@ -106,12 +105,12 @@ var cases = [
 ]
 
 
-function expect_type (type, actual, expected) {
-  expect(type + ':' + actual).to.equal(type + ':' + expected)
-}
+// function expect_type (type, actual, expected) {
+//   expect(`${type}:${actual}`).to.equal(`${type}:${expected}`)
+// }
 
 
-function e (p, c) {
+function e (t, p, c) {
   [
     'scope',
     'name',
@@ -122,60 +121,50 @@ function e (p, c) {
     'pkg',
     'url'
 
-  ].forEach((key) => {
-    expect_type(key, p[key], c[key])
+  ].forEach(key => {
+    t.is(p[key], c[key], key)
   })
 }
 
-cases.forEach(function (c) {
-
-  describe(c.id, function(){
-    it("id(id)", function(){
-      var p = id(c.id)
-      e(p, c)
-    })
+cases.forEach(c => {
+  test(c.id, t => {
+    const p = id(c.id)
+    e(t, p, c)
   })
 })
 
 
-describe("error", function () {
-  it("should throw error if id is not a string", function(){
-    var error
-    try {
-      id()
-    } catch(e) {
-      error = e
-    }
-
-    expect(error).not.to.equal()
+test('should throw error if id is not a string', t => {
+  t.throws(() => id(), {
+    code: 'INVALID_TYPE'
   })
 })
 
 
-describe('name setter', function () {
-  it('no scope', function () {
-    var p = id('a/a')
-    p.name = 'b'
+// describe('name setter', () => {
+//   it('no scope', () => {
+//     const p = id('a/a')
+//     p.name = 'b'
 
-    expect(p.name).to.equal('b')
-    expect(p.id).to.equal('b/a')
-    expect(p.scope).to.equal()
-  })
+//     expect(p.name).to.equal('b')
+//     expect(p.id).to.equal('b/a')
+//     expect(p.scope).to.equal()
+//   })
 
-  it('scope -> no scope', function () {
-    var p = id('@a/a')
-    p.name = 'a'
-    expect(p.name).to.equal('a')
-    expect(p.id).to.equal('a')
-    expect(p.scope).to.equal()
-  })
+//   it('scope -> no scope', () => {
+//     const p = id('@a/a')
+//     p.name = 'a'
+//     expect(p.name).to.equal('a')
+//     expect(p.id).to.equal('a')
+//     expect(p.scope).to.equal()
+//   })
 
-  it('scope -> scope', function () {
-    var p = id('@a/a/css')
-    p.name = '@b/a'
+//   it('scope -> scope', () => {
+//     const p = id('@a/a/css')
+//     p.name = '@b/a'
 
-    expect(p.name).to.equal('@b/a')
-    expect(p.scope).to.equal('b')
-    expect(p.id).to.equal('@b/a/css')
-  })
-})
+//     expect(p.name).to.equal('@b/a')
+//     expect(p.scope).to.equal('b')
+//     expect(p.id).to.equal('@b/a/css')
+//   })
+// })
